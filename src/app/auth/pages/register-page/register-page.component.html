@@ -1,21 +1,22 @@
-<h2>Validaciones Reactivas</h2>
+<h2>Reactive Validations</h2>
 <hr>
 
 <div class="row">
     <div class="col">
 
-        <form autocomplete="off">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()" autocomplete="off">
 
-            <!-- Nombre -->
+            <!-- Name -->
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Nombre</label>
+                <label class="col-sm-3 col-form-label">Name</label>
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del usuario">
+                           formControlName="name"
+                           placeholder="User name">
 
-                    <span class="form-text text-danger">
-                        Debe de ser en formato de nombre y apellido
+                    <span *ngIf="IsValidField('name')" class="form-text text-danger">
+                      Must be in first name and last name format
                     </span>
                 </div>
             </div>
@@ -26,9 +27,10 @@
                 <div class="col-sm-9">
                     <input type="email"
                            class="form-control"
-                           placeholder="Email del usuario">
-                    <span class="form-text text-danger">
-                        mensaje de error del email
+                           formControlName="email"
+                           placeholder="User email">
+                    <span *ngIf="IsValidField('email')" class="form-text text-danger">
+                      Email error message
                     </span>
                 </div>
             </div>
@@ -39,9 +41,10 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre código del usuario">
-                    <span class="form-text text-danger">
-                         El username no puede ser Strider
+                           formControlName="username"
+                           placeholder="Username">
+                    <span *ngIf="IsValidField('username')" class="form-text text-danger">
+                      Username cannot be Strider
                     </span>
                 </div>
             </div>
@@ -52,24 +55,26 @@
                 <div class="col-sm-9">
                     <input type="password"
                            class="form-control"
-                           placeholder="Password de su cuenta">
+                           formControlName="password1"
+                           placeholder="Password">
 
-                    <span class="form-text text-danger">
-                         La contraseña debe de ser mayor de 6 caracteres.
+                    <span *ngIf="IsValidField('password1')" class="form-text text-danger">
+                      The password must be longer than 6 characters.
                     </span>
                 </div>
             </div>
 
             <!-- Password2 -->
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Confirmar</label>
+                <label class="col-sm-3 col-form-label">Confirm</label>
                 <div class="col-sm-9">
                     <input type="password"
                            class="form-control"
-                           placeholder="Confirmar la contraseña">
+                           formControlName="password2"
+                           placeholder="Confrim password">
 
-                    <span class="form-text text-danger">
-                         Las contraseñas deben de ser iguales
+                    <span *ngIf="IsValidField('password2')" class="form-text text-danger">
+                      Passwords must be the same
                     </span>
                 </div>
             </div>
@@ -79,7 +84,7 @@
                 <div class="col">
                     <button class="btn btn-primary float-end"
                             type="submit">
-                        Crear
+                        Create
                     </button>
                 </div>
             </div>
@@ -90,24 +95,24 @@
 </div>
 
 
-<h2>Form Valid: </h2>
-<h2>Form Status: </h2>
-<h2>Form Pending: </h2>
+<h2>Form Valid: {{ myForm.valid }} </h2>
+<h2>Form Status: {{ myForm.status }} </h2>
+<h2>Form Pending: {{ myForm.pending }} </h2>
 <h2>Form errors</h2>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.errors | json }}</pre>
 
-<h5>Nombre</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<h5>Name</h5>
+<pre>{{ myForm.value['name'].erros| json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.value['email'].erros | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.value['username '].errors | json }}</pre>
 
 
 <h5>Password</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.value.password1 | json }}</pre>
 
-<h5>Confirmar</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<h5>Confirm</h5>
+<pre>{{ myForm.value.password2 | json }}</pre>
